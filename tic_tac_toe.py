@@ -4,8 +4,11 @@ LINE = "-" * 9
 def main():
     """Main function of the game."""
     print_instruction()
+    # initialize board with value -1
     board = [-1] * 9
+    # flag to see if there's a winner
     win = False
+    # number of move in the game
     move = 0
     while not win:
         print_board(board)
@@ -19,16 +22,16 @@ def main():
             user = get_input(turn)
         board[user] = 1 if turn == 'X' else 0
 
-        # advance move and check for end game
+        # invrease move and check for end game
         move += 1
         check_end_game(board, move)
 
 
 def print_instruction():
-    """Print playing instructions."""
+    """Print playing instructions to the terminal."""
     texte = '| Please use the following cell numbers to make your move. |'
     len_texte = len(texte)
-    encadre = '-' * len_texte
+    encadre = ('-' * len_texte)
     print(f"\n{encadre}\n{texte}")
     print_board([2, 3, 4, 5, 6, 7, 8, 9, 10])
     print(f'{encadre}\n')
@@ -82,8 +85,8 @@ def get_input(turn: str) -> int:
 
 def check_win(board: list):
     """Check if there's a winner.
-    - board : game board
-    Return -1 if there's a winner or 
+    - board : game board\n
+    Return index of the winner or -1
     """
     win_cond = ((1, 2, 3), (4, 5, 6), (7, 8, 9), (1, 4, 7),
                 (2, 5, 8), (3, 6, 9), (1, 5, 9), (3, 5, 7))
@@ -91,8 +94,8 @@ def check_win(board: list):
         try:
             if board[each[0] - 1] == board[each[1] - 1] and board[each[1] - 1] == board[each[2] - 1]:
                 return board[each[0] - 1]
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"Error: {e.__str__()}.")
     return -1
 
 
